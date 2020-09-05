@@ -7,7 +7,7 @@ namespace TraditionalCipher.Library
     public class CaesarCipher
     {
         private Regex onlyCapitalLetters = new Regex("^[A-Z]+$");
-        public string Encrypt(string text, int key)
+        public string Encrypt(string text, int key=3)
         {
             var convertedText = this.ValidateAndConvert(text);
             var encryptedStringBuilder = new StringBuilder();
@@ -21,7 +21,7 @@ namespace TraditionalCipher.Library
             return encryptedStringBuilder.ToString();
         }
 
-        public string Decrypt(string encryptext, int key)
+        public string Decrypt(string encryptext, int key=3)
         {
             var convertedText = this.ValidateAndConvert(encryptext);
             var decryptedStringBuilder = new StringBuilder();
