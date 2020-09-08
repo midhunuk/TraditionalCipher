@@ -5,13 +5,13 @@ using Xunit;
 
 namespace TraditionalCipher.Tests
 {
-    public class Rot13CipherTests
+    public class AtbashCipherTests
     {
-        private Rot13Cipher rot13Cipher;
+        private AtbashCipher atbashCipher;
 
-        public Rot13CipherTests()
+        public AtbashCipherTests()
         {
-            this.rot13Cipher = new Rot13Cipher(new ValiatorAndConverter());
+            this.atbashCipher = new AtbashCipher(new ValiatorAndConverter());
         }
 
         [Fact]
@@ -19,10 +19,10 @@ namespace TraditionalCipher.Tests
         {
             // Arrange
             var text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            var encryptedString = "NOPQRSTUVWXYZABCDEFGHIJKLM";
+            var encryptedString = "ZYXWVUTSRQPONMLKJIHGFEDCBA";
 
             // Act
-            var encryptText = this.rot13Cipher.Encrypt(text);
+            var encryptText = this.atbashCipher.Encrypt(text);
 
             // Assert
             encryptText.Should().Be(encryptedString);
@@ -33,10 +33,10 @@ namespace TraditionalCipher.Tests
         {
             // Arrange
             var text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            var encryptedString = "NOPQRSTUVWXYZABCDEFGHIJKLM";
+            var encryptedString = "ZYXWVUTSRQPONMLKJIHGFEDCBA";
 
             // Act
-            var decryptText = this.rot13Cipher.Decrypt(encryptedString);
+            var decryptText = this.atbashCipher.Decrypt(encryptedString);
 
             // Assert
             decryptText.Should().Be(text);
