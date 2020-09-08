@@ -1,15 +1,21 @@
 ﻿using System;
 using System.Text;
-using System.Text.RegularExpressions;
+using TraditionalCipher.Library.Interface;
 
-namespace TraditionalCipher.Library
+namespace TraditionalCipher.Library.Ciphers
 {
     public class CaesarCipher
     {
-        private Regex onlyCapitalLetters = new Regex("^[A-Z]+$");
-        public string Encrypt(string text, int key=3)
+        private readonly IValiatorAndConverter valiatorAndConverter;
+
+        public CaesarCipher(IValiatorAndConverter valiatorAndConverter)
         {
-            var convertedText = this.ValidateAndConvert(text);
+            this.valiatorAndConverter = valiatorAndConverter;
+        }
+
+        public string Encrypt(string text, int key = 3)
+        {
+            var convertedText = this.valiatorAndConverter.ValidateAndConvertToAllUpper(text);
             var encryptedStringBuilder = new StringBuilder();
             foreach(var character in convertedText)
             {
@@ -23,7 +29,7 @@ namespace TraditionalCipher.Library
 
         public string Decrypt(string encryptext, int key=3)
         {
-            var convertedText = this.ValidateAndConvert(encryptext);
+            var convertedText = this.valiatorAndConverter.ValidateAndConvertToAllUpper(encryptext);
             var decryptedStringBuilder = new StringBuilder();
             foreach (var character in convertedText)
             {
@@ -33,23 +39,6 @@ namespace TraditionalCipher.Library
             }
 
             return decryptedStringBuilder.ToString();
-        }
-
-        private string ValidateAndConvert(string text)
-        {
-            if(string.IsNullOrEmpty(text))
-            {
-                throw new ArgumentNullException("Input string.");
-            }
-
-            var convertedtext = text.ToUpper();
-            convertedtext = Regex.Replace(convertedtext, @"\s", "");
-            if(!onlyCapitalLetters.IsMatch(convertedtext))
-            {
-                throw new ArgumentException("Input text contains unwanted character.");
-            }
-
-            return convertedtext;
         }
     }
 }

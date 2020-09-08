@@ -1,17 +1,17 @@
 using FluentAssertions;
-using System;
 using Xunit;
 using TraditionalCipher.Library;
+using TraditionalCipher.Library.Ciphers;
 
 namespace TraditionalCipher.Tests
 {
     public class CaesarCipherTests
     {
-        private CaesarCipher caesarCipherCodec;
+        private CaesarCipher caesarCipher;
 
         public CaesarCipherTests()
         {
-            this.caesarCipherCodec = new CaesarCipher();
+            this.caesarCipher = new CaesarCipher(new ValiatorAndConverter());
         }
 
         [Theory]
@@ -22,11 +22,10 @@ namespace TraditionalCipher.Tests
             var text = "A B C D E F G H I J K L M n o p q r s t u v W X Y Z";
 
             // Act
-            var encryptText = this.caesarCipherCodec.Encrypt(text, key);
+            var encryptText = this.caesarCipher.Encrypt(text, key);
 
             // Assert
             encryptText.Should().Be(encryptedString);
-
         }
 
         [Theory]
@@ -37,40 +36,38 @@ namespace TraditionalCipher.Tests
             var text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
             // Act
-            var decryptText = this.caesarCipherCodec.Decrypt(encryptedString, key);
+            var decryptText = this.caesarCipher.Decrypt(encryptedString, key);
 
             // Assert
             decryptText.Should().Be(text);
-
         }
 
         [Fact]
-        public void InvalidCharacterInInputText_ArgumentExceptionIsThrown()
+        public void ClassicEncryptText()
         {
             // Arrange
-            var text = "Ad @ 73";
+            var text = "A B C D E F G H I J K L M n o p q r s t u v W X Y Z";
+            var encryptedString = "DEFGHIJKLMNOPQRSTUVWXYZABC";
 
             // Act
-            Action encrypt = () => this.caesarCipherCodec.Encrypt(text, 5);
-            Action decrypt = () => this.caesarCipherCodec.Decrypt(text, 5);
+            var encryptText = this.caesarCipher.Encrypt(text);
 
             // Assert
-            encrypt.Should().Throw<ArgumentException>().WithMessage("Input text contains unwanted character.");
-            decrypt.Should().Throw<ArgumentException>().WithMessage("Input text contains unwanted character.");
+            encryptText.Should().Be(encryptedString);
         }
 
-        [Theory]
-        [InlineData("")]
-        [InlineData(null)]
-        public void EmptyAndNullInputText_ArgumentNullExceptionIsThrown(string inputText)
+        [Fact]
+        public void ClassicDecryptText()
         {
+            // Arrange
+            var text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
+            var encryptedString = "DEFGHIJKLMNOPQRSTUVWXYZABC";
+
             // Act
-            Action encrypt = () => this.caesarCipherCodec.Encrypt(inputText, 5);
-            Action decrypt = () => this.caesarCipherCodec.Decrypt(inputText, 5);
+            var decryptText = this.caesarCipher.Decrypt(encryptedString);
 
             // Assert
-            encrypt.Should().Throw<ArgumentNullException>();
-            decrypt.Should().Throw<ArgumentNullException>();
+            decryptText.Should().Be(text);
         }
     }
 }
