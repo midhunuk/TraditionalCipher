@@ -2,6 +2,7 @@ using FluentAssertions;
 using Xunit;
 using TraditionalCipher.Library;
 using TraditionalCipher.Library.Ciphers;
+using TraditionalCipher.Library.Interface;
 
 namespace TraditionalCipher.Tests
 {
@@ -22,7 +23,7 @@ namespace TraditionalCipher.Tests
             var text = "A B C D E F G H I J K L M n o p q r s t u v W X Y Z";
 
             // Act
-            var encryptText = this.caesarCipher.Encrypt(text, key);
+            var encryptText = this.caesarCipher.Encrypt(text, InputType.EnglishAlphabetsOnly, key);
 
             // Assert
             encryptText.Should().Be(encryptedString);
@@ -36,7 +37,7 @@ namespace TraditionalCipher.Tests
             var text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
             // Act
-            var decryptText = this.caesarCipher.Decrypt(encryptedString, key);
+            var decryptText = this.caesarCipher.Decrypt(encryptedString, InputType.EnglishAlphabetsOnly, key);
 
             // Assert
             decryptText.Should().Be(text);
@@ -50,7 +51,7 @@ namespace TraditionalCipher.Tests
             var encryptedString = "DEFGHIJKLMNOPQRSTUVWXYZABC";
 
             // Act
-            var encryptText = this.caesarCipher.Encrypt(text);
+            var encryptText = this.caesarCipher.Encrypt(text, InputType.EnglishAlphabetsOnly);
 
             // Assert
             encryptText.Should().Be(encryptedString);
@@ -64,7 +65,7 @@ namespace TraditionalCipher.Tests
             var encryptedString = "DEFGHIJKLMNOPQRSTUVWXYZABC";
 
             // Act
-            var decryptText = this.caesarCipher.Decrypt(encryptedString);
+            var decryptText = this.caesarCipher.Decrypt(encryptedString, InputType.EnglishAlphabetsOnly);
 
             // Assert
             decryptText.Should().Be(text);

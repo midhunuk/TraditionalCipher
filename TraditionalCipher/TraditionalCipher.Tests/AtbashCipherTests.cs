@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using TraditionalCipher.Library;
 using TraditionalCipher.Library.Ciphers;
+using TraditionalCipher.Library.Interface;
 using Xunit;
 
 namespace TraditionalCipher.Tests
@@ -22,7 +23,7 @@ namespace TraditionalCipher.Tests
             var encryptedString = "ZYXWVUTSRQPONMLKJIHGFEDCBA";
 
             // Act
-            var encryptText = this.atbashCipher.Encrypt(text);
+            var encryptText = this.atbashCipher.Encrypt(text, InputType.EnglishAlphabetsOnly);
 
             // Assert
             encryptText.Should().Be(encryptedString);
@@ -36,7 +37,7 @@ namespace TraditionalCipher.Tests
             var encryptedString = "ZYXWVUTSRQPONMLKJIHGFEDCBA";
 
             // Act
-            var decryptText = this.atbashCipher.Decrypt(encryptedString);
+            var decryptText = this.atbashCipher.Decrypt(encryptedString, InputType.EnglishAlphabetsOnly);
 
             // Assert
             decryptText.Should().Be(text);

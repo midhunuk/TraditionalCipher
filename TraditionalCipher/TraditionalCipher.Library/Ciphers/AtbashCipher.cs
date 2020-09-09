@@ -13,27 +13,18 @@ namespace TraditionalCipher.Library.Ciphers
             this.valiatorAndConverter = valiatorAndConverter;
         }
 
-        public string Encrypt(string text)
+        public string Encrypt(string text, InputType inputType)
         {
-            return convert(text);
+            return this.valiatorAndConverter.ValidateAndConvert(text, inputType, this.Shfit);
         }
 
-        public string Decrypt(string text)
+        public string Decrypt(string text, InputType inputType)
         {
-            return convert(text);
+            return this.valiatorAndConverter.ValidateAndConvert(text, inputType, this.Shfit);
         }
-
-        private string convert(string text)
-        {
-            var convertedText = this.valiatorAndConverter.ValidateAndConvertToAllUpper(text);
-            var encryptedStringBuilder = new StringBuilder();
-            foreach (var character in convertedText)
-            {
-                var charIndex = character - 65;
-                var shfitedCharIndex = Math.Abs(charIndex - 25);
-                encryptedStringBuilder.Append(Convert.ToChar(shfitedCharIndex + 65));
-            }
-            return encryptedStringBuilder.ToString();
+        private int Shfit(int index, int maxChar) 
+        { 
+            return Math.Abs(index - (maxChar - 1));
         }
-    }
+}
 }

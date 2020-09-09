@@ -1,7 +1,9 @@
-﻿namespace TraditionalCipher.Library.Interface
+﻿using System;
+
+namespace TraditionalCipher.Library.Interface
 {
     public interface IValiatorAndConverter
     {
-        string ValidateAndConvertToAllUpper(string text);
+        string ValidateAndConvert(string text, InputType inputType, Func<int,int,int> shfitFuction);
     }
 }

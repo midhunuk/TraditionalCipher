@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using TraditionalCipher.Library;
 using TraditionalCipher.Library.Ciphers;
+using TraditionalCipher.Library.Interface;
 using Xunit;
 
 namespace TraditionalCipher.Tests
@@ -22,7 +23,7 @@ namespace TraditionalCipher.Tests
             var encryptedString = "NOPQRSTUVWXYZABCDEFGHIJKLM";
 
             // Act
-            var encryptText = this.rot13Cipher.Encrypt(text);
+            var encryptText = this.rot13Cipher.Encrypt(text, InputType.EnglishAlphabetsOnly);
 
             // Assert
             encryptText.Should().Be(encryptedString);
@@ -36,7 +37,7 @@ namespace TraditionalCipher.Tests
             var encryptedString = "NOPQRSTUVWXYZABCDEFGHIJKLM";
 
             // Act
-            var decryptText = this.rot13Cipher.Decrypt(encryptedString);
+            var decryptText = this.rot13Cipher.Decrypt(encryptedString, InputType.EnglishAlphabetsOnly);
 
             // Assert
             decryptText.Should().Be(text);

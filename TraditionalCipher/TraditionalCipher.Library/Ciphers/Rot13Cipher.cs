@@ -11,14 +11,14 @@ namespace TraditionalCipher.Library.Ciphers
             this.caesarCipher = new CaesarCipher(valiatorAndConverter);
         }
 
-        public string Encrypt(string text)
+        public string Encrypt(string text, InputType inputType)
         {
-            return this.caesarCipher.Encrypt(text, 13);
+            return this.caesarCipher.Encrypt(text, inputType, 13);
         }
 
-        public string Decrypt(string encryptext)
+        public string Decrypt(string encryptext, InputType inputType)
         {
-            return this.caesarCipher.Decrypt(encryptext, 13);
+            return this.caesarCipher.Decrypt(encryptext, inputType, 13);
         }
     }
 }
